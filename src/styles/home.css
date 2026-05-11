@@ -53,6 +53,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -87,6 +88,7 @@ body {
 }
 
 .navbar-container {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-lg);
@@ -253,6 +255,7 @@ body {
 .about {
   padding: var(--space-2xl) 0;
   background: var(--white-light);
+  scroll-margin-top: 96px;
 }
 
 .about-content {
@@ -292,6 +295,7 @@ body {
 .services {
   padding: var(--space-2xl) 0;
   background: var(--white-primary);
+  scroll-margin-top: 96px;
 }
 
 .services h2 {
@@ -570,27 +574,54 @@ body {
     --space-2xl: 2.5rem;
   }
 
+  html {
+    scroll-padding-top: 0;
+  }
+
+  .navbar {
+    position: relative;
+  }
+
   .menu-toggle {
     display: flex;
+    z-index: 2;
   }
 
   .nav-menu {
     position: absolute;
-    top: 80px;
+    top: 100%;
     left: 0;
     right: 0;
     background: var(--black-primary);
     flex-direction: column;
     gap: var(--space-md);
-    padding: var(--space-lg);
+    padding: 0 var(--space-lg);
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-normal);
-    border-bottom: 2px solid var(--gold-primary);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      max-height var(--transition-normal),
+      opacity var(--transition-normal),
+      visibility 0s linear var(--transition-normal),
+      padding var(--transition-normal);
+    border-bottom: 2px solid transparent;
   }
 
   .nav-menu.active {
-    max-height: 400px;
+    max-height: 320px;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+      max-height var(--transition-normal),
+      opacity var(--transition-normal),
+      visibility 0s linear 0s,
+      padding var(--transition-normal);
+    border-bottom-color: var(--gold-primary);
   }
 
   .menu-toggle.active span:nth-child(1) {
@@ -633,6 +664,11 @@ body {
   .navbar-container {
     height: 70px;
     padding: 0 var(--space-md);
+  }
+
+  .about,
+  .services {
+    scroll-margin-top: 0;
   }
 
   .hero-content {
