@@ -1,0 +1,158 @@
+.hero {
+  position: relative;
+  height: min(100svh, 500px);
+  overflow: hidden;
+  isolation: isolate;
+  z-index: 0;
+}
+
+.hero-media {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: min(100svh, 500px);
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/img/valoriscapa.png");
+  background-size: cover;
+  background-position: center;
+  transform-origin: center center;
+  transform: scale(calc(1 + (var(--hero-zoom-range) * var(--hero-scroll-progress))));
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--color-bg);
+  opacity: calc(
+    var(--hero-overlay-opacity) +
+      ((1 - var(--hero-overlay-opacity)) * clamp(0, calc(var(--hero-scroll-progress) * var(--hero-overlay-darken-speed)), 1))
+  );
+  will-change: opacity;
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: min(100%, var(--container-width));
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 34px var(--container-gutter) 86px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.hero-stage {
+  align-self: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(180px, 23vw, 300px);
+  align-items: center;
+  gap: clamp(16px, 3.8vw, 56px);
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand img {
+  width: auto;
+  height: 21px;
+  display: block;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.menu a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(245, 247, 251, 0.96);
+  transition: color 0.2s ease, transform 0.2s ease;
+  transform-origin: center;
+}
+
+.menu a:hover {
+  color: #fff;
+}
+
+.menu a:not(.cta-button) {
+  display: inline-block;
+}
+
+.menu a:not(.cta-button):hover,
+.menu a:not(.cta-button):focus-visible {
+  transform: scale(1.06);
+}
+
+.cta-button {
+  background: var(--accent);
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+  transform: scale(1.05);
+  box-shadow: 0 10px 22px rgba(5, 116, 71, 0.35);
+}
+
+.hero-text {
+  max-width: min(100%, 700px);
+  margin: 0;
+  text-align: left;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  line-height: 1.2;
+  font-weight: 300;
+}
+
+.hero-text strong {
+  font-weight: 800;
+}
+
+.hero-text p {
+  margin: 22px 0 0;
+  font-size: 1.08rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg {
+    transform: none;
+  }
+
+  .hero-overlay {
+    opacity: var(--hero-overlay-opacity);
+  }
+}
