@@ -3,6 +3,8 @@ import AppLandingPage from "./pages/AppLandingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
+const APP_REGISTRY = {};
+
 const APP_PAGE_REGISTRY = {
   privacypoly: PrivacyPolicyPage,
 };

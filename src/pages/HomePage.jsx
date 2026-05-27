@@ -8,28 +8,43 @@ function HomePage() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const whatsappLink = "https://wa.me/55"; // Adicionar numero de telefone. 
+  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "55";
+  const whatsappText = encodeURIComponent("Olá! Vim pelo site da VALORIS e gostaria de falar com um consultor.");
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/seuinstagram";
+  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "contato@valorisgestao.com.br";
 
   const services = [
     {
-      title: "Consultoria Estratégica",
-      description: "Diagnóstico profundo do seu negócio para definir estratégias de crescimento, competitividade e sustentabilidade.",
+      title: "Consórcios Estratégicos",
+      description:
+        "Planejamento inteligente para realização de sonhos, crescimento patrimonial e expansão empresarial.",
+      icon: "🏠",
+    },
+    {
+      title: "Planos de Saúde",
+      description:
+        "Soluções em saúde com foco em cuidado, proteção e tranquilidade para pessoas, famílias e empresas.",
+      icon: "🏥",
+    },
+    {
+      title: "Seguros",
+      description:
+        "Proteção para vida, patrimônio, empresas e futuros, trazendo mais segurança nos momentos importantes.",
+      icon: "🛡️",
+    },
+    {
+      title: "Estratégia & Gestão",
+      description:
+        "Soluções estratégicas para organização, crescimento e fortalecimento empresarial.",
       icon: "📊",
     },
     {
-      title: "Gestão de Projetos",
-      description: "Planejamento, execução e controle com metodologia rigorosa, garantindo entrega dentro do prazo e orçamento.",
-      icon: "✓",
-    },
-    {
-      title: "Organização Empresarial",
-      description: "Reestruturação de processos, sistemas e equipes para maximizar eficiência e produtividade.",
-      icon: "🚀",
-    },
-    {
-      title: "Desenvolvimento de Lideranças",
-      description: "Programas de capacitação para desenvolver competências gerenciais e fortalecer a cultura organizacional.",
-      icon: "👥",
+      title: "Pesquisas & Inteligência",
+      description:
+        "Pesquisas de opinião e análises estratégicas para projetos políticos e empresas, auxiliando decisões com mais clareza e visão de cenário.",
+      icon: "📈",
     },
   ];
 
@@ -38,10 +53,10 @@ function HomePage() {
       {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-container">
-          <div className="brand">
+          <a className="brand" href="/" aria-label="Valoris - Página inicial">
             <img src="/img/valoris_logo.svg" alt="Valoris" className="logo" />
             <span className="wordmark">VALORIS</span>
-          </div>
+          </a>
 
           <button
             className={`menu-toggle ${isMobileMenuOpen ? "active" : ""}`}
@@ -55,8 +70,8 @@ function HomePage() {
 
           <ul className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
             <li>
-              <a href="#sobre" onClick={() => setIsMobileMenuOpen(false)}>
-                Sobre nós
+              <a href="#quem-somos" onClick={() => setIsMobileMenuOpen(false)}>
+                Quem somos
               </a>
             </li>
             <li>
@@ -65,8 +80,13 @@ function HomePage() {
               </a>
             </li>
             <li>
+              <a href="#diferencial" onClick={() => setIsMobileMenuOpen(false)}>
+                Diferencial
+              </a>
+            </li>
+            <li>
               <a href={whatsappLink} className="nav-cta">
-                Contato
+                WhatsApp
               </a>
             </li>
           </ul>
@@ -76,32 +96,67 @@ function HomePage() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
+          <div className="hero-brand">
+            <img src="/img/valoris_logo.svg" alt="Valoris" className="hero-logo" />
+            <span className="hero-wordmark">VALORIS</span>
+          </div>
+
           <h1>
-            Impulsione seu <span className="highlight">Negócio</span>
+            Cuidamos do presente para proteger o{" "}
+            <span className="highlight">futuro</span> das pessoas.
           </h1>
+
           <p>
-            Consultoria estratégica e gestão profissional para empresas que querem crescer com excelência e resultados reais.
+            Planejamento, proteção e soluções inteligentes para pessoas e empresas com segurança,
+            estratégia e visão de futuro.
           </p>
-          <a href={whatsappLink} className="btn btn-primary">
-            Conversar Agora
-          </a>
+
+          <div className="hero-actions">
+            <a href={whatsappLink} className="btn btn-primary">
+              Falar no WhatsApp
+            </a>
+            <a href="#quem-somos" className="btn btn-secondary">
+              Conhecer a VALORIS
+            </a>
+          </div>
+
+          <ul className="hero-trust">
+            <li>Estratégia</li>
+            <li>Segurança</li>
+            <li>Humanização</li>
+            <li>Confiança</li>
+            <li>Visão de futuro</li>
+          </ul>
         </div>
         <div className="hero-background"></div>
       </section>
 
       {/* About Section */}
-      <section id="sobre" className="about">
+      <section id="quem-somos" className="about">
         <div className="container">
           <div className="about-content">
-            <h2>Sobre Valoris</h2>
+            <p className="section-eyebrow">QUEM SOMOS</p>
+            <h2>A VALORIS nasceu daquilo que acreditamos.</h2>
             <p>
-              Somos uma consultoria especializada em estratégia empresarial e gestão. 
-              Trabalhamos com empresas de diversos setores, ajudando-as a alcançar seus objetivos através de soluções profissionais, 
-              personalizadas e orientadas para resultados reais.
+              Pessoas precisam ser cuidadas com verdade, estratégia e responsabilidade.
             </p>
             <p>
-              Nossa missão é transformar desafios em oportunidades, criando valor sustentável para nossos clientes através de 
-              excelência, dedicação e foco obsessivo em resultados.
+              Criamos uma empresa onde o atendimento humano vem antes de qualquer serviço, porque entendemos
+              que por trás de cada decisão existe uma família, um sonho, um futuro e uma história.
+            </p>
+            <p>
+              O nome <strong>VALORIS</strong> carrega exatamente nossa essência: valorizar pessoas, construir relações de confiança
+              e oferecer soluções que tragam segurança, crescimento e tranquilidade.
+            </p>
+            <p>
+              Atuamos nas áreas de consórcios, planos de saúde, seguros, estratégia, gestão e pesquisas de opinião,
+              sempre unindo inteligência, planejamento e proximidade com cada cliente.
+            </p>
+            <p>
+              Mais do que apresentar soluções, queremos ser apoio, direção e confiança nos momentos importantes da vida e dos negócios.
+            </p>
+            <p>
+              Acreditamos que servir pessoas com excelência, transparência e propósito é o que realmente gera valor.
             </p>
           </div>
         </div>
@@ -110,8 +165,11 @@ function HomePage() {
       {/* Services Section */}
       <section id="servicos" className="services">
         <div className="container">
-          <h2>Nossos Serviços</h2>
-          <p className="section-subtitle">Soluções completas para potencializar sua empresa</p>
+          <p className="section-eyebrow">SERVIÇOS</p>
+          <h2>Soluções com cuidado e estratégia.</h2>
+          <p className="section-subtitle">
+            Cada serviço existe para orientar decisões, proteger histórias e construir futuros mais seguros.
+          </p>
 
           <div className="services-grid">
             {services.map((service, index) => (
@@ -125,41 +183,94 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="why-choose">
+      {/* Diferencial */}
+      <section id="diferencial" className="why-choose">
         <div className="container">
-          <h2>Por que Valoris?</h2>
+          <p className="section-eyebrow section-eyebrow--dark">DIFERENCIAL</p>
+          <h2>Resultados sólidos começam com relações verdadeiras.</h2>
 
           <div className="why-grid">
             <div className="why-card">
-              <h3> Foco em Resultados</h3>
-              <p>Cada projeto tem objetivos claros e mensuráveis. Seu sucesso é nosso sucesso.</p>
+              <h3>Proximidade de verdade</h3>
+              <p>
+                Cada cliente é atendido de forma humana, com atenção aos detalhes e respeito à sua história.
+              </p>
             </div>
             <div className="why-card">
-              <h3> Experiência Consolidada</h3>
-              <p>Equipe com vasta experiência em diferentes setores e modelos de negócio.</p>
+              <h3>Responsabilidade com o futuro</h3>
+              <p>
+                Entendemos que por trás de cada decisão existem sonhos, famílias, patrimônio e futuro.
+              </p>
             </div>
             <div className="why-card">
-              <h3> Parceria Verdadeira</h3>
-              <p>Não somos apenas consultores. Somos parceiros comprometidos com seu crescimento.</p>
+              <h3>Jornada com segurança</h3>
+              <p>
+                Nosso compromisso é fazer com que cada pessoa se sinta segura, acolhida e confiante em cada etapa.
+              </p>
             </div>
             <div className="why-card">
-              <h3> Soluções Personalizadas</h3>
-              <p>Cada empresa é única. Nossas soluções são customizadas para sua realidade.</p>
+              <h3>Propósito acima de tudo</h3>
+              <p>
+                Mais do que oferecer serviços, construímos conexões baseadas em confiança, proximidade e responsabilidade.
+              </p>
+            </div>
+          </div>
+
+          <blockquote className="brand-quote">
+            “O nosso maior diferencial sempre serão as pessoas.”
+          </blockquote>
+        </div>
+      </section>
+
+      {/* Essência */}
+      <section className="essence">
+        <div className="container">
+          <p className="section-eyebrow">ESSÊNCIA DA VALORIS</p>
+          <h2>Orientar. Proteger. Valorizar.</h2>
+        
+
+          <div className="essence-grid">
+            <div className="essence-card">
+              <h3>Orientar</h3>
+              <p>Orientar pessoas com verdade e estratégia.</p>
+            </div>
+            <div className="essence-card">
+              <h3>Proteger</h3>
+              <p>Proteger sonhos, famílias e futuros.</p>
+            </div>
+            <div className="essence-card">
+              <h3>Valorizar</h3>
+              <p>Valorizar cada história, cada conquista e cada decisão importante da vida.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="cta">
+      {/* Contato / Encerramento */}
+      <section id="contato" className="cta">
         <div className="container">
-          <h2>Quer elevar sua empresa para o próximo nível?</h2>
-          <p>Fale conosco. Vamos analisar sua situação e propor a melhor estratégia para seu crescimento.</p>
-          <a href={whatsappLink} className="btn btn-primary btn-large">
-            <span>Iniciar Conversa</span>
-            <span>→</span>
-          </a>
+          <h2>Fale com um consultor.</h2>
+          <p>
+            A VALORIS existe para orientar com clareza, proteger com responsabilidade e construir futuros mais seguros — com você.
+          </p>
+
+          <div className="cta-actions">
+            <a href={whatsappLink} className="btn btn-primary btn-large">
+              <span>WhatsApp</span>
+              <span>→</span>
+            </a>
+            <a className="btn btn-secondary btn-large" href={instagramLink} target="_blank" rel="noreferrer">
+              Instagram
+            </a>
+          </div>
+
+          <p className="cta-meta">
+            Ou envie um e-mail para{" "}
+            <a href={`mailto:${contactEmail}`} className="cta-link">
+              {contactEmail}
+            </a>
+            .
+          </p>
         </div>
       </section>
 
@@ -168,27 +279,40 @@ function HomePage() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
-              <h3 className="wordmark">Valoris</h3>
-              <p>Consultoria estratégica e gestão para empresas que buscam crescimento sustentável e resultados.</p>
+              <h3 className="wordmark">VALORIS</h3>
+              <p>
+                Planejamento, proteção e soluções inteligentes para pessoas e empresas com segurança, estratégia e visão de futuro.
+              </p>
             </div>
             <div className="footer-section">
               <h3>Menu</h3>
               <ul>
                 <li>
-                  <a href="#sobre">Sobre</a>
+                  <a href="#quem-somos">Quem somos</a>
                 </li>
                 <li>
                   <a href="#servicos">Serviços</a>
                 </li>
                 <li>
-                  <a href={whatsappLink}>Contato</a>
+                  <a href="#diferencial">Diferencial</a>
+                </li>
+                <li>
+                  <a href="#contato">Fale conosco</a>
                 </li>
               </ul>
             </div>
             <div className="footer-section">
-              <h3>Conecte-se</h3>
+              <h3>Contato</h3>
               <p>
                 <a href={whatsappLink}>WhatsApp</a>
+              </p>
+              <p>
+                <a href={instagramLink} target="_blank" rel="noreferrer">
+                  Instagram
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
               </p>
             </div>
           </div>
