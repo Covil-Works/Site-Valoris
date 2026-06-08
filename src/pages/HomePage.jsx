@@ -1,8 +1,25 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 import "../styles/home.css";
 
 function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    reveals.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -129,12 +146,14 @@ function HomePage() {
           </ul>
         </div>
         <div className="hero-background"></div>
+        <div className="hero-orb hero-orb--1" aria-hidden="true"></div>
+        <div className="hero-orb hero-orb--2" aria-hidden="true"></div>
       </section>
 
       {/* About Section */}
       <section id="quem-somos" className="about">
         <div className="container">
-          <div className="about-content">
+          <div className="about-content reveal">
             <p className="section-eyebrow">QUEM SOMOS</p>
             <h2>A VALORIS nasceu daquilo que acreditamos.</h2>
             <p>
@@ -165,15 +184,17 @@ function HomePage() {
       {/* Services Section */}
       <section id="servicos" className="services">
         <div className="container">
-          <p className="section-eyebrow">SERVIÇOS</p>
-          <h2>Soluções com cuidado e estratégia.</h2>
-          <p className="section-subtitle">
-            Cada serviço existe para orientar decisões, proteger histórias e construir futuros mais seguros.
-          </p>
+          <div className="section-header reveal">
+            <p className="section-eyebrow">SERVIÇOS</p>
+            <h2>Soluções com cuidado e estratégia.</h2>
+            <p className="section-subtitle">
+              Cada serviço existe para orientar decisões, proteger histórias e construir futuros mais seguros.
+            </p>
+          </div>
 
           <div className="services-grid">
             {services.map((service, index) => (
-              <article key={index} className="service-card">
+              <article key={index} className={`service-card reveal reveal-delay-${(index % 4) + 1}`}>
                 <div className="service-icon">{service.icon}</div>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
@@ -186,29 +207,31 @@ function HomePage() {
       {/* Diferencial */}
       <section id="diferencial" className="why-choose">
         <div className="container">
-          <p className="section-eyebrow section-eyebrow--dark">DIFERENCIAL</p>
-          <h2>Resultados sólidos começam com relações verdadeiras.</h2>
+          <div className="section-header reveal">
+            <p className="section-eyebrow section-eyebrow--dark">DIFERENCIAL</p>
+            <h2>Resultados sólidos começam com relações verdadeiras.</h2>
+          </div>
 
           <div className="why-grid">
-            <div className="why-card">
+            <div className="why-card reveal reveal-delay-1">
               <h3>Proximidade de verdade</h3>
               <p>
                 Cada cliente é atendido de forma humana, com atenção aos detalhes e respeito à sua história.
               </p>
             </div>
-            <div className="why-card">
+            <div className="why-card reveal reveal-delay-2">
               <h3>Responsabilidade com o futuro</h3>
               <p>
                 Entendemos que por trás de cada decisão existem sonhos, famílias, patrimônio e futuro.
               </p>
             </div>
-            <div className="why-card">
+            <div className="why-card reveal reveal-delay-3">
               <h3>Jornada com segurança</h3>
               <p>
                 Nosso compromisso é fazer com que cada pessoa se sinta segura, acolhida e confiante em cada etapa.
               </p>
             </div>
-            <div className="why-card">
+            <div className="why-card reveal reveal-delay-4">
               <h3>Propósito acima de tudo</h3>
               <p>
                 Mais do que oferecer serviços, construímos conexões baseadas em confiança, proximidade e responsabilidade.
@@ -216,7 +239,7 @@ function HomePage() {
             </div>
           </div>
 
-          <blockquote className="brand-quote">
+          <blockquote className="brand-quote reveal">
             “O nosso maior diferencial sempre serão as pessoas.”
           </blockquote>
         </div>
@@ -225,20 +248,21 @@ function HomePage() {
       {/* Essência */}
       <section className="essence">
         <div className="container">
-          <p className="section-eyebrow">ESSÊNCIA DA VALORIS</p>
-          <h2>Orientar. Proteger. Valorizar.</h2>
-        
+          <div className="section-header reveal">
+            <p className="section-eyebrow">ESSÊNCIA DA VALORIS</p>
+            <h2>Orientar. Proteger. Valorizar.</h2>
+          </div>
 
           <div className="essence-grid">
-            <div className="essence-card">
+            <div className="essence-card reveal reveal-delay-1">
               <h3>Orientar</h3>
               <p>Orientar pessoas com verdade e estratégia.</p>
             </div>
-            <div className="essence-card">
+            <div className="essence-card reveal reveal-delay-2">
               <h3>Proteger</h3>
               <p>Proteger sonhos, famílias e futuros.</p>
             </div>
-            <div className="essence-card">
+            <div className="essence-card reveal reveal-delay-3">
               <h3>Valorizar</h3>
               <p>Valorizar cada história, cada conquista e cada decisão importante da vida.</p>
             </div>
@@ -248,7 +272,7 @@ function HomePage() {
 
       {/* Contato / Encerramento */}
       <section id="contato" className="cta">
-        <div className="container">
+        <div className="container reveal">
           <h2>Fale com um consultor.</h2>
           <p>
             A VALORIS existe para orientar com clareza, proteger com responsabilidade e construir futuros mais seguros — com você.
