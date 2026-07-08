@@ -1,8 +1,44 @@
-﻿import { useState, useEffect } from "react";
+import { useEffect, useId, useState } from "react";
 import "../styles/home.css";
+
+const icons = {
+  compass: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8 4.8-2.2Z" />
+    </svg>
+  ),
+  shield: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3 19 6v5.3c0 4.4-2.8 8.4-7 9.7-4.2-1.3-7-5.3-7-9.7V6l7-3Z" />
+      <path d="m9 12 2 2 4-5" />
+    </svg>
+  ),
+  heart: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.4 5.6a5 5 0 0 0-7.1 0L12 6.9l-1.3-1.3a5 5 0 0 0-7.1 7.1L12 21l8.4-8.3a5 5 0 0 0 0-7.1Z" />
+    </svg>
+  ),
+  briefcase: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" />
+      <rect x="3" y="6" width="18" height="14" rx="2" />
+      <path d="M3 12h18M12 12v2" />
+    </svg>
+  ),
+  chart: (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 19V5" />
+      <path d="M4 19h16" />
+      <path d="M8 15l3-3 3 2 5-7" />
+      <path d="M17 7h2v2" />
+    </svg>
+  ),
+};
 
 function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navId = useId();
 
   useEffect(() => {
     const reveals = document.querySelectorAll(".reveal");
@@ -21,9 +57,29 @@ function HomePage() {
     return () => observer.disconnect();
   }, []);
 
-  const toggleMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  useEffect(() => {
+    if (!isMobileMenuOpen) return undefined;
+
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const closeOnOutsideClick = (event) => {
+      if (!event.target.closest(".navbar")) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+    };
+  }, [isMobileMenuOpen]);
 
   const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "55";
   const whatsappText = encodeURIComponent("Olá! Vim pelo site da VALORIS e gostaria de falar com um consultor.");
@@ -34,40 +90,44 @@ function HomePage() {
 
   const services = [
     {
-      title: "Consórcios Estratégicos",
+      title: "Planejar patrimônio",
+      eyebrow: "Consórcios Estratégicos",
       description:
-        "Planejamento inteligente para realização de sonhos, crescimento patrimonial e expansão empresarial.",
-      icon: "🏠",
+        "Consórcios pensados como decisão patrimonial: compra, expansão ou conquista com previsibilidade e orientação.",
+      icon: icons.compass,
     },
     {
-      title: "Planos de Saúde",
+      title: "Cuidar da saúde",
+      eyebrow: "Planos de Saúde",
       description:
-        "Soluções em saúde com foco em cuidado, proteção e tranquilidade para pessoas, famílias e empresas.",
-      icon: "🏥",
+        "Soluções para proteger pessoas, famílias e equipes com atenção ao cuidado, à rotina e à tranquilidade.",
+      icon: icons.heart,
     },
     {
-      title: "Seguros",
+      title: "Proteger o que importa",
+      eyebrow: "Seguros",
       description:
-        "Proteção para vida, patrimônio, empresas e futuros, trazendo mais segurança nos momentos importantes.",
-      icon: "🛡️",
+        "Proteção para vida, patrimônio e negócios, construída para reduzir riscos nos momentos que mais importam.",
+      icon: icons.shield,
     },
     {
-      title: "Estratégia & Gestão",
+      title: "Fortalecer empresas",
+      eyebrow: "Estratégia & Gestão",
       description:
-        "Soluções estratégicas para organização, crescimento e fortalecimento empresarial.",
-      icon: "📊",
+        "Apoio para organizar decisões, estruturar crescimento e enxergar caminhos empresariais com mais segurança.",
+      icon: icons.briefcase,
     },
     {
-      title: "Pesquisas & Inteligência",
+      title: "Ler cenários",
+      eyebrow: "Pesquisas & Inteligência",
       description:
-        "Pesquisas de opinião e análises estratégicas para projetos políticos e empresas, auxiliando decisões com mais clareza e visão de cenário.",
-      icon: "📈",
+        "Pesquisas de opinião e leitura estratégica para empresas e projetos políticos decidirem com mais clareza.",
+      icon: icons.chart,
     },
   ];
 
   return (
     <div className="page">
-      {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-container">
           <a className="brand" href="/" aria-label="Valoris - Página inicial">
@@ -77,15 +137,18 @@ function HomePage() {
 
           <button
             className={`menu-toggle ${isMobileMenuOpen ? "active" : ""}`}
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
+            type="button"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls={navId}
           >
             <span></span>
             <span></span>
             <span></span>
           </button>
 
-          <ul className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
+          <ul id={navId} className={`nav-menu ${isMobileMenuOpen ? "active" : ""}`}>
             <li>
               <a href="#quem-somos" onClick={() => setIsMobileMenuOpen(false)}>
                 Quem somos
@@ -110,92 +173,60 @@ function HomePage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <div className="hero-brand">
-            <img src="/img/valoris_logo.svg" alt="Valoris" className="hero-logo" />
-            <span className="hero-wordmark">VALORIS</span>
+          <div className="hero-copy">
+            <div className="hero-brand">
+              <span className="hero-wordmark">VALORIS</span>
+            </div>
+
+            <h1>Orientação para proteger o que você constrói.</h1>
+
+            <p>
+              Planejamento, proteção e inteligência para pessoas e empresas que decidem com responsabilidade.
+            </p>
+
+            <div className="hero-actions" aria-label="Ações principais">
+              <a href={whatsappLink} className="btn btn-primary">
+                Falar com a VALORIS
+              </a>
+            </div>
           </div>
-
-          <h1>
-            Cuidamos do presente para proteger o{" "}
-            <span className="highlight">futuro</span> das pessoas.
-          </h1>
-
-          <p>
-            Planejamento, proteção e soluções inteligentes para pessoas e empresas com segurança,
-            estratégia e visão de futuro.
-          </p>
-
-          <div className="hero-actions">
-            <a href={whatsappLink} className="btn btn-primary">
-              Falar no WhatsApp
-            </a>
-            <a href="#quem-somos" className="btn btn-secondary">
-              Conhecer a VALORIS
-            </a>
-          </div>
-
-          <ul className="hero-trust">
-            <li>Estratégia</li>
-            <li>Segurança</li>
-            <li>Humanização</li>
-            <li>Confiança</li>
-            <li>Visão de futuro</li>
-          </ul>
         </div>
-        <div className="hero-background"></div>
-        <div className="hero-orb hero-orb--1" aria-hidden="true"></div>
-        <div className="hero-orb hero-orb--2" aria-hidden="true"></div>
       </section>
 
-      {/* About Section */}
       <section id="quem-somos" className="about">
         <div className="container">
           <div className="about-content reveal">
-            <p className="section-eyebrow">QUEM SOMOS</p>
-            <h2>A VALORIS nasceu daquilo que acreditamos.</h2>
-            <p>
-              Pessoas precisam ser cuidadas com verdade, estratégia e responsabilidade.
+            <div className="section-mark">Quem somos</div>
+            <h2>Pessoas vêm antes de serviços.</h2>
+            <p className="about-lead">
+              A VALORIS orienta pessoas e empresas em decisões que envolvem saúde, patrimônio, proteção, crescimento e
+              estratégia.
             </p>
-            <p>
-              Criamos uma empresa onde o atendimento humano vem antes de qualquer serviço, porque entendemos
-              que por trás de cada decisão existe uma família, um sonho, um futuro e uma história.
-            </p>
-            <p>
-              O nome <strong>VALORIS</strong> carrega exatamente nossa essência: valorizar pessoas, construir relações de confiança
-              e oferecer soluções que tragam segurança, crescimento e tranquilidade.
-            </p>
-            <p>
-              Atuamos nas áreas de consórcios, planos de saúde, seguros, estratégia, gestão e pesquisas de opinião,
-              sempre unindo inteligência, planejamento e proximidade com cada cliente.
-            </p>
-            <p>
-              Mais do que apresentar soluções, queremos ser apoio, direção e confiança nos momentos importantes da vida e dos negócios.
-            </p>
-            <p>
-              Acreditamos que servir pessoas com excelência, transparência e propósito é o que realmente gera valor.
+            <p className="about-summary">
+              Unimos consórcios, planos de saúde, seguros, gestão e pesquisas de opinião em uma atuação consultiva,
+              próxima e responsável.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
       <section id="servicos" className="services">
         <div className="container">
-          <div className="section-header reveal">
-            <p className="section-eyebrow">SERVIÇOS</p>
-            <h2>Soluções com cuidado e estratégia.</h2>
-            <p className="section-subtitle">
-              Cada serviço existe para orientar decisões, proteger histórias e construir futuros mais seguros.
-            </p>
-          </div>
-
           <div className="services-grid">
+            <div className="services-intro reveal">
+              <div className="section-mark">Serviços</div>
+              <h2>Orientação para decidir melhor.</h2>
+              <p>
+                Ajudamos você a se orientar, proteger seu patrimônio e tomar decisões com mais segurança.
+              </p>
+            </div>
+
             {services.map((service, index) => (
-              <article key={index} className={`service-card reveal reveal-delay-${(index % 4) + 1}`}>
+              <article key={service.title} className={`service-card reveal reveal-delay-${(index % 4) + 1}`}>
                 <div className="service-icon">{service.icon}</div>
+                <p className="service-eyebrow">{service.eyebrow}</p>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </article>
@@ -204,109 +235,91 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Diferencial */}
       <section id="diferencial" className="why-choose">
         <div className="container">
           <div className="section-header reveal">
-            <p className="section-eyebrow section-eyebrow--dark">DIFERENCIAL</p>
-            <h2>Resultados sólidos começam com relações verdadeiras.</h2>
+            <div className="section-mark section-mark--dark">Diferencial</div>
+            <h2>Relações sólidas começam com relações verdadeiras.</h2>
+            <p className="section-subtitle section-subtitle--dark">
+              Nosso processo começa com escuta e termina com orientação clara para o próximo passo.
+            </p>
           </div>
 
           <div className="why-grid">
             <div className="why-card reveal reveal-delay-1">
-              <h3>Proximidade de verdade</h3>
-              <p>
-                Cada cliente é atendido de forma humana, com atenção aos detalhes e respeito à sua história.
-              </p>
+              <span className="why-number">01</span>
+              <h3>Escutamos</h3>
+              <p>Entendemos o momento, as prioridades e o que precisa ser protegido.</p>
             </div>
             <div className="why-card reveal reveal-delay-2">
-              <h3>Responsabilidade com o futuro</h3>
-              <p>
-                Entendemos que por trás de cada decisão existem sonhos, famílias, patrimônio e futuro.
-              </p>
+              <span className="why-number">02</span>
+              <h3>Lemos a situação</h3>
+              <p>Organizamos riscos, possibilidades e caminhos antes de qualquer indicação.</p>
             </div>
             <div className="why-card reveal reveal-delay-3">
-              <h3>Jornada com segurança</h3>
-              <p>
-                Nosso compromisso é fazer com que cada pessoa se sinta segura, acolhida e confiante em cada etapa.
-              </p>
+              <span className="why-number">03</span>
+              <h3>Orientamos</h3>
+              <p>Apresentamos alternativas com clareza, responsabilidade e visão de futuro.</p>
             </div>
             <div className="why-card reveal reveal-delay-4">
-              <h3>Propósito acima de tudo</h3>
-              <p>
-                Mais do que oferecer serviços, construímos conexões baseadas em confiança, proximidade e responsabilidade.
-              </p>
+              <span className="why-number">04</span>
+              <h3>Acompanhamos</h3>
+              <p>Ajudamos o cliente a seguir o caminho mais adequado com segurança.</p>
             </div>
           </div>
 
           <blockquote className="brand-quote reveal">
-            “O nosso maior diferencial sempre serão as pessoas.”
+            <span>O nosso maior diferencial sempre serão as pessoas.</span>
           </blockquote>
         </div>
       </section>
 
-      {/* Essência */}
       <section className="essence">
         <div className="container">
           <div className="section-header reveal">
-            <p className="section-eyebrow">ESSÊNCIA DA VALORIS</p>
-            <h2>Orientar. Proteger. Valorizar.</h2>
+            <div className="section-mark">Essência da Valoris</div>
           </div>
 
           <div className="essence-grid">
             <div className="essence-card reveal reveal-delay-1">
               <h3>Orientar</h3>
-              <p>Orientar pessoas com verdade e estratégia.</p>
+              <p>Com verdade, clareza e estratégia.</p>
             </div>
             <div className="essence-card reveal reveal-delay-2">
               <h3>Proteger</h3>
-              <p>Proteger sonhos, famílias e futuros.</p>
+              <p>Sonhos, famílias, empresas e futuros.</p>
             </div>
             <div className="essence-card reveal reveal-delay-3">
               <h3>Valorizar</h3>
-              <p>Valorizar cada história, cada conquista e cada decisão importante da vida.</p>
+              <p>Cada história, conquista e decisão importante.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contato / Encerramento */}
       <section id="contato" className="cta">
         <div className="container reveal">
-          <h2>Fale com um consultor.</h2>
-          <p>
-            A VALORIS existe para orientar com clareza, proteger com responsabilidade e construir futuros mais seguros — com você.
-          </p>
+          <h2>Planeje com mais segurança.</h2>
+          <p>Fale com um dos nossos especialistas e encontre a melhor orientação para o seu caso.</p>
 
           <div className="cta-actions">
             <a href={whatsappLink} className="btn btn-primary btn-large">
-              <span>WhatsApp</span>
-              <span>→</span>
-            </a>
-            <a className="btn btn-secondary btn-large" href={instagramLink} target="_blank" rel="noreferrer">
-              Instagram
+              <span>Conversar pelo WhatsApp</span>
+              <svg className="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.5 11.8a8.4 8.4 0 0 1-12.4 7.4L4 20.3l1.1-4A8.4 8.4 0 1 1 20.5 11.8Z" />
+                <path d="M9.3 7.8c-.2-.4-.4-.4-.7-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 3 4.5 4.1 2.2.9 2.7.7 3.2.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.5-.4l-1.7-.8c-.3-.1-.5-.2-.7.1l-.7.9c-.2.2-.4.3-.7.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2.1-.4 0-.6l-.8-1.8Z" />
+              </svg>
             </a>
           </div>
-
-          <p className="cta-meta">
-            Ou envie um e-mail para{" "}
-            <a href={`mailto:${contactEmail}`} className="cta-link">
-              {contactEmail}
-            </a>
-            .
-          </p>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="footer">
         <div className="container">
           <div className="footer-content">
             <div className="footer-section">
               <h3 className="wordmark">VALORIS</h3>
-              <p>
-                Planejamento, proteção e soluções inteligentes para pessoas e empresas com segurança, estratégia e visão de futuro.
-              </p>
+              <p>Orientação, proteção e valorização para decisões que constroem futuros mais seguros.</p>
             </div>
             <div className="footer-section">
               <h3>Menu</h3>
