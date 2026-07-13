@@ -902,8 +902,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  min-height: 56px;
+  width: 78.4px;
+  min-height: 78.4px;
   padding: 0;
   border: 0;
   border-radius: var(--radius-full);
@@ -918,7 +918,7 @@ body {
 
 .whatsapp-trigger:hover { background: #1fbd5b; animation-play-state: paused; transform: translateY(-2px); }
 .whatsapp-widget.is-open .whatsapp-trigger { animation: none; }
-.whatsapp-trigger svg { width: 29px; height: 29px; fill: currentColor; }
+.whatsapp-trigger svg { width: 40.6px; height: 40.6px; fill: currentColor; }
 
 @keyframes whatsappGentleJumps {
   0%, 38%, 50%, 88%, 100% { transform: translateY(0); }
