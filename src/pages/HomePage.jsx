@@ -87,8 +87,8 @@ function HomePage() {
     "Olá! Vim pelo site da VALORIS e gostaria de falar com um especialista para entender qual solução é mais adequada para mim."
   );
   const whatsappContacts = [
-    { name: "Clodovane Lago", phone: "+55 91 8229-5217", link: `https://wa.me/559182295217?text=${whatsappText}` },
     { name: "Alessandra Santana", phone: "+55 91 9230-3598", link: `https://wa.me/559192303598?text=${whatsappText}` },
+    { name: "Clodovane Lago", phone: "+55 91 8229-5217", link: `https://wa.me/559182295217?text=${whatsappText}` },
   ];
 
   const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/seuinstagram";
@@ -347,10 +347,10 @@ function HomePage() {
             <div className="footer-section">
               <h3>Contato</h3>
               <p>
-                <a href={whatsappContacts[0].link} target="_blank" rel="noreferrer">Clodovane Lago · +55 91 8229-5217</a>
+                <a href={whatsappContacts[0].link} target="_blank" rel="noreferrer">Alessandra Santana · +55 91 9230-3598</a>
               </p>
               <p>
-                <a href={whatsappContacts[1].link} target="_blank" rel="noreferrer">Alessandra Santana · +55 91 9230-3598</a>
+                <a href={whatsappContacts[1].link} target="_blank" rel="noreferrer">Clodovane Lago · +55 91 8229-5217</a>
               </p>
               <p>
                 <a href={instagramLink} target="_blank" rel="noreferrer">
