@@ -91,7 +91,7 @@ function HomePage() {
     { name: "Clodovane Lago", phone: "+55 91 8229-5217", link: `https://wa.me/559182295217?text=${whatsappText}` },
   ];
 
-  const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/seuinstagram";
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://www.instagram.com/valorisestrategia/";
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "contato@valorisgestao.com.br";
 
   const services = [
