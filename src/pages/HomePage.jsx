@@ -38,7 +38,9 @@ const icons = {
 
 function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isWhatsappOpen, setIsWhatsappOpen] = useState(false);
   const navId = useId();
+  const whatsappPanelId = useId();
 
   useEffect(() => {
     const reveals = document.querySelectorAll(".reveal");
@@ -81,11 +83,15 @@ function HomePage() {
     };
   }, [isMobileMenuOpen]);
 
-  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "55";
-  const whatsappText = encodeURIComponent("Olá! Vim pelo site da VALORIS e gostaria de falar com um consultor.");
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+  const whatsappText = encodeURIComponent(
+    "Olá! Vim pelo site da VALORIS e gostaria de falar com um especialista para entender qual solução é mais adequada para mim."
+  );
+  const whatsappContacts = [
+    { name: "Alessandra Santana", phone: "+55 91 9230-3598", link: `https://wa.me/559192303598?text=${whatsappText}` },
+    { name: "Clodovane Lago", phone: "+55 91 8229-5217", link: `https://wa.me/559182295217?text=${whatsappText}` },
+  ];
 
-  const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://instagram.com/seuinstagram";
+  const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://www.instagram.com/valorisestrategia/";
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "contato@valorisgestao.com.br";
 
   const services = [
@@ -165,8 +171,8 @@ function HomePage() {
               </a>
             </li>
             <li>
-              <a href={whatsappLink} className="nav-cta">
-                WhatsApp
+              <a href="#contato" className="nav-cta" onClick={() => setIsMobileMenuOpen(false)}>
+                Contato
               </a>
             </li>
           </ul>
@@ -187,7 +193,7 @@ function HomePage() {
             </p>
 
             <div className="hero-actions" aria-label="Ações principais">
-              <a href={whatsappLink} className="btn btn-primary">
+              <a href="#contato" className="btn btn-primary">
                 Falar com a VALORIS
               </a>
             </div>
@@ -302,14 +308,14 @@ function HomePage() {
           <h2>Planeje com mais segurança.</h2>
           <p>Fale com um dos nossos especialistas e encontre a melhor orientação para o seu caso.</p>
 
-          <div className="cta-actions">
-            <a href={whatsappLink} className="btn btn-primary btn-large">
-              <span>Conversar pelo WhatsApp</span>
-              <svg className="btn-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20.5 11.8a8.4 8.4 0 0 1-12.4 7.4L4 20.3l1.1-4A8.4 8.4 0 1 1 20.5 11.8Z" />
-                <path d="M9.3 7.8c-.2-.4-.4-.4-.7-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 3 4.5 4.1 2.2.9 2.7.7 3.2.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.2-.2-.5-.4l-1.7-.8c-.3-.1-.5-.2-.7.1l-.7.9c-.2.2-.4.3-.7.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2.1-.4 0-.6l-.8-1.8Z" />
-              </svg>
-            </a>
+          <div className="contact-options" aria-label="Especialistas disponíveis">
+            {whatsappContacts.map((contact) => (
+              <a key={contact.name} href={contact.link} className="contact-option" target="_blank" rel="noreferrer">
+                <strong>{contact.name}</strong>
+                <span>{contact.phone}</span>
+                <span className="contact-option-action">Conversar no WhatsApp →</span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -341,7 +347,10 @@ function HomePage() {
             <div className="footer-section">
               <h3>Contato</h3>
               <p>
-                <a href={whatsappLink}>WhatsApp</a>
+                <a href={whatsappContacts[0].link} target="_blank" rel="noreferrer">Alessandra Santana · +55 91 9230-3598</a>
+              </p>
+              <p>
+                <a href={whatsappContacts[1].link} target="_blank" rel="noreferrer">Clodovane Lago · +55 91 8229-5217</a>
               </p>
               <p>
                 <a href={instagramLink} target="_blank" rel="noreferrer">
@@ -358,6 +367,37 @@ function HomePage() {
           </div>
         </div>
       </footer>
+
+      <aside className={`whatsapp-widget ${isWhatsappOpen ? "is-open" : ""}`} aria-label="Atendimento pelo WhatsApp">
+        <div id={whatsappPanelId} className="whatsapp-panel" aria-hidden={!isWhatsappOpen}>
+          <div className="whatsapp-panel-header">
+            <span className="whatsapp-avatar" aria-hidden="true">V</span>
+            <div><strong>VALORIS</strong><span>online</span></div>
+            <button type="button" onClick={() => setIsWhatsappOpen(false)} aria-label="Fechar atendimento">×</button>
+          </div>
+          <div className="whatsapp-chat-body">
+            <span className="whatsapp-chat-date">Hoje</span>
+            <div className="whatsapp-message">
+              <p>Olá! Gostaria de entender qual solução é mais adequada para você? Fale com um de nossos especialistas:</p>
+              <time>agora</time>
+            </div>
+            <div className="whatsapp-choices">
+              {whatsappContacts.map((contact) => (
+                <a key={contact.name} href={contact.link} target="_blank" rel="noreferrer">
+                  <span className="whatsapp-contact-avatar" aria-hidden="true">{contact.name.charAt(0)}</span>
+                  <strong>{contact.name}</strong>
+                  <span className="whatsapp-send-icon" aria-hidden="true">›</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+        <button className="whatsapp-trigger" type="button" onClick={() => setIsWhatsappOpen((open) => !open)} aria-expanded={isWhatsappOpen} aria-controls={whatsappPanelId} aria-label={isWhatsappOpen ? "Fechar atendimento pelo WhatsApp" : "Abrir atendimento pelo WhatsApp"}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12.04 2a9.84 9.84 0 0 0-8.52 14.76L2 22l5.38-1.41A9.96 9.96 0 0 0 12.04 22 9.84 9.84 0 0 0 12.04 2Zm0 18.34a8.27 8.27 0 0 1-4.22-1.16l-.3-.18-3.2.84.85-3.11-.2-.32a8.17 8.17 0 1 1 7.07 3.93Zm4.53-6.12c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.05-.39-2-1.23a7.5 7.5 0 0 1-1.38-1.71c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.2.88 2.37 1 2.54.12.16 1.73 2.64 4.19 3.7.58.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.47-.29Z" />
+          </svg>
+        </button>
+      </aside>
     </div>
   );
 }
