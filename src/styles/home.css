@@ -896,6 +896,7 @@ body {
   flex-direction: column;
   align-items: flex-end;
   gap: 0.75rem;
+  pointer-events: none;
 }
 
 .whatsapp-trigger {
@@ -911,6 +912,7 @@ body {
   color: #fff;
   font: 700 0.92rem var(--font-family-main);
   cursor: pointer;
+  pointer-events: auto;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
   transition: background var(--transition-fast), transform var(--transition-fast);
   animation: whatsappGentleJumps 1s 5s infinite;
