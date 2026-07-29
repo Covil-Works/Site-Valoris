@@ -290,6 +290,9 @@ function HomePage() {
         <div className="container">
           <div className="section-header reveal">
             <div className="section-mark">Essência da Valoris</div>
+            <p className="essence-statement reveal">
+              Queremos construir relacionamentos duradouros e ajudar pessoas e empresas a proteger suas conquistas.
+            </p>
           </div>
 
           <div className="essence-grid">
@@ -306,6 +309,7 @@ function HomePage() {
               <p>Cada história, conquista e decisão importante.</p>
             </div>
           </div>
+
         </div>
       </section>
 
