@@ -1,6 +1,12 @@
 import { useEffect, useId, useState } from "react";
 import "../styles/home.css";
 
+const defaultWhatsappMessage =
+  "Olá! Vim pelo site da VALORIS e gostaria de falar com um especialista para entender qual solução é mais adequada para mim.";
+
+const createWhatsappLink = (phone, message) =>
+  `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
 const icons = {
   compass: (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -39,6 +45,7 @@ const icons = {
 function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isWhatsappOpen, setIsWhatsappOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
   const navId = useId();
   const whatsappPanelId = useId();
 
@@ -83,43 +90,86 @@ function HomePage() {
     };
   }, [isMobileMenuOpen]);
 
-  const whatsappText = encodeURIComponent(
-    "Olá! Vim pelo site da VALORIS e gostaria de falar com um especialista para entender qual solução é mais adequada para mim."
-  );
+  const whatsappMessage = selectedService?.whatsappMessage || defaultWhatsappMessage;
   const whatsappContacts = [
-    { name: "Alessandra Santana", phone: "+55 91 9230-3598", link: `https://wa.me/559192303598?text=${whatsappText}` },
-    { name: "Clodovane Lago", phone: "+55 91 8229-5217", link: `https://wa.me/559182295217?text=${whatsappText}` },
+    {
+      name: "Alessandra Santana",
+      phone: "+55 91 9230-3598",
+      whatsappPhone: "559192303598",
+      link: createWhatsappLink("559192303598", defaultWhatsappMessage),
+    },
+    {
+      name: "Clodovane Lago",
+      phone: "+55 91 8229-5217",
+      whatsappPhone: "559182295217",
+      link: createWhatsappLink("559182295217", defaultWhatsappMessage),
+    },
   ];
 
   const instagramLink = import.meta.env.VITE_INSTAGRAM_URL || "https://www.instagram.com/valorisestrategia/";
-  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "contato@valorisgestao.com.br";
 
   const services = [
     {
+      id: "consorcios",
       title: "Consórcios",
       description:
         "Planejamento patrimonial para aquisição de imóveis, veículos, equipamentos, serviços e investimentos.",
       icon: icons.compass,
+      windowMessage:
+        "Quer saber mais sobre Consórcios? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
+      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Consórcios.",
     },
     {
+      id: "seguros",
       title: "Seguros",
       description:
         "Proteção para sua família, seu patrimônio e sua empresa com segurança e tranquilidade.",
       icon: icons.shield,
+      windowMessage:
+        "Quer saber mais sobre Seguros? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
+      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Seguros.",
     },
     {
+      id: "planos-de-saude",
       title: "Planos de Saúde",
       description:
         "Para pessoas físicas e empresas, garantindo qualidade de vida para quem mais importa.",
       icon: icons.heart,
+      windowMessage:
+        "Quer saber mais sobre Planos de Saúde? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
+      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Planos de Saúde.",
     },
     {
+      id: "pesquisas-estrategicas",
       title: "Pesquisas Estratégicas",
       description:
         "Pesquisas de opinião pública, eleitorais e de mercado para apoiar suas decisões.",
       icon: icons.chart,
+      windowMessage:
+        "Quer saber mais sobre Pesquisas Estratégicas? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
+      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Pesquisas Estratégicas.",
     },
   ];
+
+  const openWhatsappForService = (service) => {
+    setSelectedService(service);
+    setIsWhatsappOpen(true);
+  };
+
+  const closeWhatsapp = () => {
+    setIsWhatsappOpen(false);
+    setSelectedService(null);
+  };
+
+  const toggleDefaultWhatsapp = () => {
+    if (isWhatsappOpen) {
+      closeWhatsapp();
+      return;
+    }
+
+    setSelectedService(null);
+    setIsWhatsappOpen(true);
+  };
 
   return (
     <div className="page">
@@ -253,9 +303,9 @@ function HomePage() {
                 <div className="service-icon">{service.icon}</div>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <a href="#contato" className="service-link">
+                <button type="button" className="service-link" onClick={() => openWhatsappForService(service)}>
                   Saber mais <span aria-hidden="true">→</span>
-                </a>
+                </button>
               </article>
             ))}
           </div>
@@ -373,9 +423,6 @@ function HomePage() {
                   Instagram
                 </a>
               </p>
-              <p>
-                <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-              </p>
             </div>
           </div>
           <div className="footer-bottom">
@@ -389,17 +436,25 @@ function HomePage() {
           <div className="whatsapp-panel-header">
             <span className="whatsapp-avatar" aria-hidden="true">V</span>
             <div><strong>VALORIS</strong><span>online</span></div>
-            <button type="button" onClick={() => setIsWhatsappOpen(false)} aria-label="Fechar atendimento">×</button>
+            <button type="button" onClick={closeWhatsapp} aria-label="Fechar atendimento">×</button>
           </div>
           <div className="whatsapp-chat-body">
             <span className="whatsapp-chat-date">Hoje</span>
-            <div className="whatsapp-message">
-              <p>Olá! Gostaria de entender qual solução é mais adequada para você? Fale com um de nossos especialistas:</p>
+            <div className="whatsapp-message" aria-live="polite">
+              <p>
+                {selectedService?.windowMessage ||
+                  "Olá! Gostaria de entender qual solução é mais adequada para você? Fale com um de nossos especialistas:"}
+              </p>
               <time>agora</time>
             </div>
             <div className="whatsapp-choices">
               {whatsappContacts.map((contact) => (
-                <a key={contact.name} href={contact.link} target="_blank" rel="noreferrer">
+                <a
+                  key={contact.name}
+                  href={createWhatsappLink(contact.whatsappPhone, whatsappMessage)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <span className="whatsapp-contact-avatar" aria-hidden="true">{contact.name.charAt(0)}</span>
                   <strong>{contact.name}</strong>
                   <span className="whatsapp-send-icon" aria-hidden="true">›</span>
@@ -408,7 +463,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <button className="whatsapp-trigger" type="button" onClick={() => setIsWhatsappOpen((open) => !open)} aria-expanded={isWhatsappOpen} aria-controls={whatsappPanelId} aria-label={isWhatsappOpen ? "Fechar atendimento pelo WhatsApp" : "Abrir atendimento pelo WhatsApp"}>
+        <button className="whatsapp-trigger" type="button" onClick={toggleDefaultWhatsapp} aria-expanded={isWhatsappOpen} aria-controls={whatsappPanelId} aria-label={isWhatsappOpen ? "Fechar atendimento pelo WhatsApp" : "Abrir atendimento pelo WhatsApp"}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12.04 2a9.84 9.84 0 0 0-8.52 14.76L2 22l5.38-1.41A9.96 9.96 0 0 0 12.04 22 9.84 9.84 0 0 0 12.04 2Zm0 18.34a8.27 8.27 0 0 1-4.22-1.16l-.3-.18-3.2.84.85-3.11-.2-.32a8.17 8.17 0 1 1 7.07 3.93Zm4.53-6.12c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.05-.39-2-1.23a7.5 7.5 0 0 1-1.38-1.71c-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.2.88 2.37 1 2.54.12.16 1.73 2.64 4.19 3.7.58.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.16-.47-.29Z" />
           </svg>
