@@ -315,8 +315,11 @@ function HomePage() {
 
       <section id="contato" className="cta">
         <div className="container reveal">
-          <h2>Planeje com mais segurança.</h2>
-          <p>Fale com um dos nossos especialistas e encontre a melhor orientação para o seu caso.</p>
+          <h2>Seu próximo patrimônio começa com uma boa estratégia.</h2>
+          <p>
+            Converse com a Valoris Estratégia &amp; Gestão e descubra como podemos ajudar você a proteger, conquistar e
+            crescer com segurança.
+          </p>
 
           <div className="contact-options" aria-label="Especialistas disponíveis">
             {whatsappContacts.map((contact) => (
