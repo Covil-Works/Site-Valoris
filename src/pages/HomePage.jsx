@@ -176,7 +176,7 @@ function HomePage() {
               <span className="hero-company-subtitle">Estratégia &amp; Gestão</span>
             </div>
 
-            <h1>Estratégias inteligentes para proteger, conquistar e construir patrimônio.</h1>
+            <h1>Soluções inteligentes para quem deseja proteger o presente e construir um futuro mais seguro.</h1>
 
             <p>
               Ajudamos pessoas e empresas a tomar decisões inteligentes por meio de consórcios, seguros, planos de
