@@ -110,13 +110,13 @@ function HomePage() {
     {
       title: "Planos de Saúde",
       description:
-        "Soluções para pessoas físicas e empresas, garantindo qualidade de vida e proteção para quem mais importa.",
+        "Para pessoas físicas e empresas, garantindo qualidade de vida para quem mais importa.",
       icon: icons.heart,
     },
     {
       title: "Pesquisas Estratégicas",
       description:
-        "Pesquisas de opinião pública, pesquisas eleitorais e pesquisas de mercado para apoiar decisões com dados confiáveis.",
+        "Pesquisas de opinião pública, eleitorais e de mercado para apoiar suas decisões.",
       icon: icons.chart,
     },
   ];
@@ -253,6 +253,9 @@ function HomePage() {
                 <div className="service-icon">{service.icon}</div>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
+                <a href="#contato" className="service-link">
+                  Saber mais <span aria-hidden="true">→</span>
+                </a>
               </article>
             ))}
           </div>
