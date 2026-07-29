@@ -117,7 +117,7 @@ function HomePage() {
       icon: icons.compass,
       windowMessage:
         "Quer saber mais sobre Consórcios? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
-      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Consórcios.",
+      whatsappMessage: "Olá! Vim pelo site da Valoris. Gostaria de saber mais sobre o serviço de Consórcios.",
     },
     {
       id: "seguros",
@@ -127,7 +127,7 @@ function HomePage() {
       icon: icons.shield,
       windowMessage:
         "Quer saber mais sobre Seguros? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
-      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Seguros.",
+      whatsappMessage: "Olá! Vim pelo site da Valoris. Gostaria de saber mais sobre o serviço de Seguros.",
     },
     {
       id: "planos-de-saude",
@@ -137,7 +137,7 @@ function HomePage() {
       icon: icons.heart,
       windowMessage:
         "Quer saber mais sobre Planos de Saúde? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
-      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Planos de Saúde.",
+      whatsappMessage: "Olá! Vim pelo site da Valoris. Gostaria de saber mais sobre o serviço de Planos de Saúde.",
     },
     {
       id: "pesquisas-estrategicas",
@@ -147,7 +147,8 @@ function HomePage() {
       icon: icons.chart,
       windowMessage:
         "Quer saber mais sobre Pesquisas Estratégicas? Fale com um dos nossos especialistas escolhendo uma das opções abaixo.",
-      whatsappMessage: "Olá! Gostaria de saber mais sobre o serviço de Pesquisas Estratégicas.",
+      whatsappMessage:
+        "Olá! Vim pelo site da Valoris. Gostaria de saber mais sobre o serviço de Pesquisas Estratégicas.",
     },
   ];
 
