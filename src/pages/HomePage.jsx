@@ -184,17 +184,19 @@ function HomePage() {
           <div className="hero-copy">
             <div className="hero-brand">
               <span className="hero-wordmark">VALORIS</span>
+              <span className="hero-company-subtitle">Estratégia &amp; Gestão</span>
             </div>
 
-            <h1>Orientação para proteger o que você constrói.</h1>
+            <h1>Estratégias inteligentes para proteger, conquistar e construir patrimônio.</h1>
 
             <p>
-              Planejamento, proteção e inteligência para pessoas e empresas que decidem com responsabilidade.
+              Ajudamos pessoas e empresas a tomar decisões inteligentes por meio de consórcios, seguros, planos de
+              saúde e pesquisas estratégicas, sempre com planejamento, segurança e foco no futuro.
             </p>
 
             <div className="hero-actions" aria-label="Ações principais">
               <a href="#contato" className="btn btn-primary">
-                Falar com a VALORIS
+                Fale com um especialista
               </a>
             </div>
           </div>
@@ -205,14 +207,11 @@ function HomePage() {
         <div className="container">
           <div className="about-content reveal">
             <div className="section-mark">Quem somos</div>
-            <h2>Pessoas vêm antes de serviços.</h2>
+            <h2>Na Valoris Estratégia &amp; Gestão, acreditamos que grandes conquistas começam com decisões inteligentes.</h2>
             <p className="about-lead">
-              A VALORIS orienta pessoas e empresas em decisões que envolvem saúde, patrimônio, proteção, crescimento e
-              estratégia.
-            </p>
-            <p className="about-summary">
-              Unimos consórcios, planos de saúde, seguros, gestão e pesquisas de opinião em uma atuação consultiva,
-              próxima e responsável.
+              Nosso propósito é oferecer soluções que vão além da contratação de um serviço. Atuamos de forma
+              consultiva, entendendo a realidade de cada cliente para desenvolver estratégias que protejam famílias,
+              fortaleçam empresas, construam patrimônio e transformem projetos em realidade.
             </p>
           </div>
         </div>
