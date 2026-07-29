@@ -96,38 +96,27 @@ function HomePage() {
 
   const services = [
     {
-      title: "Planejar patrimônio",
-      eyebrow: "Consórcios Estratégicos",
+      title: "Consórcios",
       description:
-        "Consórcios pensados como decisão patrimonial: compra, expansão ou conquista com previsibilidade e orientação.",
+        "Planejamento patrimonial para aquisição de imóveis, veículos, equipamentos, serviços e investimentos.",
       icon: icons.compass,
     },
     {
-      title: "Cuidar da saúde",
-      eyebrow: "Planos de Saúde",
+      title: "Seguros",
       description:
-        "Soluções para proteger pessoas, famílias e equipes com atenção ao cuidado, à rotina e à tranquilidade.",
-      icon: icons.heart,
-    },
-    {
-      title: "Proteger o que importa",
-      eyebrow: "Seguros",
-      description:
-        "Proteção para vida, patrimônio e negócios, construída para reduzir riscos nos momentos que mais importam.",
+        "Proteção para sua família, seu patrimônio e sua empresa com segurança e tranquilidade.",
       icon: icons.shield,
     },
     {
-      title: "Fortalecer empresas",
-      eyebrow: "Estratégia & Gestão",
+      title: "Planos de Saúde",
       description:
-        "Apoio para organizar decisões, estruturar crescimento e enxergar caminhos empresariais com mais segurança.",
-      icon: icons.briefcase,
+        "Soluções para pessoas físicas e empresas, garantindo qualidade de vida e proteção para quem mais importa.",
+      icon: icons.heart,
     },
     {
-      title: "Ler cenários",
-      eyebrow: "Pesquisas & Inteligência",
+      title: "Pesquisas Estratégicas",
       description:
-        "Pesquisas de opinião e leitura estratégica para empresas e projetos políticos decidirem com mais clareza.",
+        "Pesquisas de opinião pública, pesquisas eleitorais e pesquisas de mercado para apoiar decisões com dados confiáveis.",
       icon: icons.chart,
     },
   ];
@@ -167,7 +156,7 @@ function HomePage() {
             </li>
             <li>
               <a href="#diferencial" onClick={() => setIsMobileMenuOpen(false)}>
-                Diferencial
+                Por que a Valoris?
               </a>
             </li>
             <li>
@@ -217,21 +206,51 @@ function HomePage() {
         </div>
       </section>
 
+      <section id="como-trabalhamos" className="process">
+        <div className="container">
+          <div className="section-header reveal">
+            <div className="section-mark section-mark--dark">Como trabalhamos</div>
+          </div>
+
+          <ol className="process-grid">
+            <li className="process-step reveal reveal-delay-1">
+              <span className="process-number">01</span>
+              <h3>Entendemos seus objetivos.</h3>
+              <p>Cada cliente possui uma realidade diferente, por isso nosso primeiro passo é ouvir e compreender suas necessidades.</p>
+            </li>
+            <li className="process-step reveal reveal-delay-2">
+              <span className="process-number">02</span>
+              <h3>Analisamos a melhor estratégia.</h3>
+              <p>Buscamos as soluções mais inteligentes e personalizadas para cada objetivo.</p>
+            </li>
+            <li className="process-step reveal reveal-delay-3">
+              <span className="process-number">03</span>
+              <h3>Apresentamos a solução ideal.</h3>
+              <p>Selecionamos as melhores alternativas para proteger, investir e construir patrimônio.</p>
+            </li>
+            <li className="process-step reveal reveal-delay-4">
+              <span className="process-number">04</span>
+              <h3>Acompanhamos cada etapa.</h3>
+              <p>Nosso compromisso continua após a contratação, oferecendo suporte e acompanhamento sempre que necessário.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
       <section id="servicos" className="services">
         <div className="container">
           <div className="services-grid">
             <div className="services-intro reveal">
-              <div className="section-mark">Serviços</div>
-              <h2>Orientação para decidir melhor.</h2>
+              <div className="section-mark">Nossos serviços</div>
+              <h2>Soluções para proteger, planejar e decidir com segurança.</h2>
               <p>
-                Ajudamos você a se orientar, proteger seu patrimônio e tomar decisões com mais segurança.
+                Reunimos soluções para pessoas e empresas, sempre com planejamento e orientação especializada.
               </p>
             </div>
 
             {services.map((service, index) => (
               <article key={service.title} className={`service-card reveal reveal-delay-${(index % 4) + 1}`}>
                 <div className="service-icon">{service.icon}</div>
-                <p className="service-eyebrow">{service.eyebrow}</p>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </article>
@@ -243,35 +262,17 @@ function HomePage() {
       <section id="diferencial" className="why-choose">
         <div className="container">
           <div className="section-header reveal">
-            <div className="section-mark section-mark--dark">Diferencial</div>
-            <h2>Relações sólidas começam com relações verdadeiras.</h2>
-            <p className="section-subtitle section-subtitle--dark">
-              Nosso processo começa com escuta e termina com orientação clara para o próximo passo.
-            </p>
+            <div className="section-mark section-mark--dark">Nosso diferencial</div>
+            <h2>Por que escolher a Valoris?</h2>
           </div>
 
-          <div className="why-grid">
-            <div className="why-card reveal reveal-delay-1">
-              <span className="why-number">01</span>
-              <h3>Escutamos</h3>
-              <p>Entendemos o momento, as prioridades e o que precisa ser protegido.</p>
-            </div>
-            <div className="why-card reveal reveal-delay-2">
-              <span className="why-number">02</span>
-              <h3>Lemos a situação</h3>
-              <p>Organizamos riscos, possibilidades e caminhos antes de qualquer indicação.</p>
-            </div>
-            <div className="why-card reveal reveal-delay-3">
-              <span className="why-number">03</span>
-              <h3>Orientamos</h3>
-              <p>Apresentamos alternativas com clareza, responsabilidade e visão de futuro.</p>
-            </div>
-            <div className="why-card reveal reveal-delay-4">
-              <span className="why-number">04</span>
-              <h3>Acompanhamos</h3>
-              <p>Ajudamos o cliente a seguir o caminho mais adequado com segurança.</p>
-            </div>
-          </div>
+          <ul className="benefits-list">
+            <li className="reveal reveal-delay-1"><span aria-hidden="true">✓</span>Atendimento consultivo e personalizado.</li>
+            <li className="reveal reveal-delay-2"><span aria-hidden="true">✓</span>Estratégias desenvolvidas para cada cliente.</li>
+            <li className="reveal reveal-delay-3"><span aria-hidden="true">✓</span>Soluções completas em um único lugar.</li>
+            <li className="reveal reveal-delay-4"><span aria-hidden="true">✓</span>Transparência, ética e compromisso.</li>
+            <li className="reveal reveal-delay-1"><span aria-hidden="true">✓</span>Planejamento com foco no futuro.</li>
+          </ul>
 
           <blockquote className="brand-quote reveal">
             <span>O nosso maior diferencial sempre serão as pessoas.</span>
