@@ -272,10 +272,16 @@ function HomePage() {
             <li className="reveal reveal-delay-3"><span aria-hidden="true">✓</span>Soluções completas em um único lugar.</li>
             <li className="reveal reveal-delay-4"><span aria-hidden="true">✓</span>Transparência, ética e compromisso.</li>
             <li className="reveal reveal-delay-1"><span aria-hidden="true">✓</span>Planejamento com foco no futuro.</li>
+            <li className="benefit-cta reveal reveal-delay-2">
+              <span aria-hidden="true">→</span>
+              <div>
+                <a href="#contato">Planeje o próximo passo!</a>
+              </div>
+            </li>
           </ul>
 
           <blockquote className="brand-quote reveal">
-            <span>O nosso maior diferencial sempre serão as pessoas.</span>
+            <span>“O nosso maior diferencial sempre serão as pessoas.”</span>
           </blockquote>
         </div>
       </section>
